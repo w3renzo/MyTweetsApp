@@ -1,8 +1,11 @@
 const btn = document.querySelector('form');
 const saveTwBox = document.getElementById('saveTwts');
 const textarea = document.getElementById('tweet');
-document.addEventListener('DOMContentLoaded', showTwt());
+const noti = document.querySelector('#notificationDelete');
 
+let tweets = viewLocalStorageTwts();
+
+document.addEventListener('DOMContentLoaded', showTwt());
 textarea.addEventListener('keydown', function (e) {
   if (e.keyCode == 13) {
     // keyCode 13 corresponds to the Enter key
@@ -13,31 +16,20 @@ textarea.addEventListener('keydown', function (e) {
 btn.addEventListener('submit', () => {
   let tweet = document.querySelector('#tweet').value;
 
-  if (tweet === '') {
-    alert('Write in te text area');
-    return;
-  }
-
   saveTw(tweet);
 });
 
 function saveTw(tweet) {
-  let tweets;
   tweets = viewLocalStorageTwts(tweets);
-
   tweets.push(tweet);
   //local storage only save string as value for this use(JSON.stringify)
   localStorage.setItem('tweets', JSON.stringify(tweets));
 }
 
 function showTwt() {
-  let tweets;
-  tweets = viewLocalStorageTwts();
-
   tweets.forEach((element) => {
     saveTwBox.insertAdjacentHTML('afterbegin', writeTwt(element));
   });
-  console.log(tweets);
 }
 
 function viewLocalStorageTwts() {
@@ -52,21 +44,24 @@ function viewLocalStorageTwts() {
 }
 
 function deleteTwt(e) {
-  console.log(e);
   let box = document.querySelectorAll('.message');
-  let g = box.length - 1;
+  let htmlArray = box.length - 1;
   let tweets;
   tweets = viewLocalStorageTwts();
 
-  for (let index = 0, l = g; index < tweets.length; index++, l--) {
+  for (let index = 0, l = htmlArray; index < tweets.length; index++, l--) {
     if (tweets[index] === e) {
       console.log(tweets[index]);
       tweets.splice(index, 1);
       box[l].remove();
     }
   }
-
   localStorage.setItem('tweets', JSON.stringify(tweets));
+  displayNotification();
+  // timeout for notification popup
+  setTimeout(() => {
+    noti.innerHTML = '';
+  }, 3000);
 }
 
 function writeTwt(twt) {
@@ -74,7 +69,7 @@ function writeTwt(twt) {
   let twtText =
     '<article class="message">' +
     '  <div class="message-header">' +
-    '    <p>Normal message</p>' +
+    '    <p>My Tweet</p>' +
     '    <button type="submit" class="delete" onclick="deleteTwt(\'' +
     e +
     '\')" id="deleteTwt" aria-label="delete"></button>' +
@@ -84,4 +79,13 @@ function writeTwt(twt) {
     '  </div>' +
     '</article>';
   return twtText;
+}
+
+const notification =
+  '<div class="notification is-danger is-light">' +
+  '    <strong>Tweet Eliminado</strong>' +
+  '  </div>';
+
+function displayNotification() {
+  noti.innerHTML = notification;
 }
