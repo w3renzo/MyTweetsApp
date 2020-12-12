@@ -4,6 +4,7 @@
 >like a local twitter
 
 ![screenshot](https://i.imgur.com/n6jbxsl.gif)
+
 Save and delete tweets
 
 ## Built With
@@ -21,7 +22,7 @@ Save and delete tweets
 ## Resources
 
 [MDN about localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API)
-[MDN JSON] (https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/JSON/parse)
+[MDN JSON](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/JSON/parse)
 
 
 ## 🤝 Contributing
@@ -34,9 +35,6 @@ Feel free to check the [issues page](issues/).
 
 Give a ⭐️ if you like this project!
 
-## Acknowledgments
-
-- Thanks to  [Javier](https://twitter.com/htmlboy) for an excellent course.
 
 ## 📝 License
 
